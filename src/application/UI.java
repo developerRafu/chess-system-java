@@ -1,11 +1,12 @@
 package application;
 
+import java.util.Arrays;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
-import boardgame.Board;
-import boardgame.Piece;
-import boardgame.Position;
+import chess.ChessMatch;
 import chess.ChessPiece;
 import chess.ChessPosition;
 import chess.Color;
@@ -38,13 +39,21 @@ public abstract class UI {
 
 	public static ChessPosition readChessPosition(Scanner sc) {
 		try {
-			String s = sc.nextLine();
+			String s = sc.nextLine().toLowerCase();
 			char column = s.charAt(0);
 			int row = Integer.parseInt(s.substring(1));
 			return new ChessPosition(column, row);
 		} catch (RuntimeException e) {
 			throw new InputMismatchException("Erro lendo posicao. Valores validos : a1 a h8");
 		}
+	}
+	
+	public static void prinMatch(ChessMatch cm, List<ChessPiece> captured) {
+		printBoard(cm.getPieces());
+		System.out.println();
+		printCapturedPieces(captured);
+		System.out.println("Turno: "+cm.getTurn());
+		System.out.println("Esperando jogador: "+cm.getCurrentPlayer());
 	}
 
 	public static void printBoard(ChessPiece[][] pieces) {
@@ -77,7 +86,7 @@ public abstract class UI {
 		if (piece == null) {
 			System.out.print("-" + ANSI_RESET);
 		} else {
-			if (piece.getColor() == Color.WHITE) {
+			if (piece.getColor() == Color.BRANCO) {
 				System.out.print(ANSI_WHITE + piece + ANSI_RESET);
 			} else {
 				System.out.print(ANSI_YELLOW + piece + ANSI_RESET);
@@ -85,4 +94,20 @@ public abstract class UI {
 		}
 		System.out.print(" ");
 	}
+	
+	private static void printCapturedPieces(List<ChessPiece> cap) {
+		List<ChessPiece> white = cap.stream().filter(x -> x.getColor() == Color.BRANCO).collect(Collectors.toList());
+		List<ChessPiece> black = cap.stream().filter(x -> x.getColor() == Color.PRETO).collect(Collectors.toList());
+		System.out.println("Captured pieces");
+		System.out.print("Branco:" );
+		System.out.print(ANSI_WHITE);
+		System.out.print(Arrays.toString(white.toArray()));
+		System.out.println(ANSI_RESET);
+		System.out.print("Preto:" );
+		System.out.print(ANSI_YELLOW);
+		System.out.print(Arrays.toString(black.toArray()));
+		System.out.println(ANSI_RESET);
+		
+	}
+	
 }
