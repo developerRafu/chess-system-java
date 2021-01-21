@@ -20,6 +20,11 @@ public class Position {
 	public void setCollum(int collum) {
 		this.collum = collum;
 	}
+	public void setValues(int row, int column) {
+		this.row = row;
+		this.collum = column;
+	}
+	
 	
 	@Override
 	public String toString() {
