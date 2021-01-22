@@ -20,7 +20,7 @@ public class Program {
 		
 		
 		
-		while (true) {
+		while (!chessMatch.getCheckmate()) {
 			try {
 			UI.clearScreen();
 			UI.prinMatch(chessMatch, captured);
@@ -38,6 +38,7 @@ public class Program {
 			ChessPosition target = UI.readChessPosition(sc);
 			
 			ChessPiece capturedPiece = chessMatch.PerformChessMove(source, target);
+			
 			UI.clearScreen();
 			if(capturedPiece != null) {
 				captured.add(capturedPiece);
@@ -50,6 +51,8 @@ public class Program {
 			sc.nextLine();
 		}
 			}
+		UI.clearScreen();
+		UI.prinMatch(chessMatch, captured);
 	}
 
 }
