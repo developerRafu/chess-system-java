@@ -54,13 +54,14 @@ public abstract class UI {
 		printCapturedPieces(captured);
 		System.out.println("Turno: " + cm.getTurn());
 		if (!cm.getCheckmate()) {
-			System.out.println("Waiting player: " + cm.getCurrentPlayer());
+			System.out.println("Esperando jogador: " + cm.getCurrentPlayer());
 			if (cm.getCheck()) {
 				System.out.println("CHECK!");
 			}
-		} else {
+		}
+		else {
 			System.out.println("CHECKMATE!");
-			System.out.println("Winner: " + cm.getCurrentPlayer());
+			System.out.println("Vencedor: " + cm.getCurrentPlayer());
 		}
 	}
 
