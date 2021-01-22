@@ -38,7 +38,7 @@ public class Program {
 			ChessPosition target = UI.readChessPosition(sc);
 			
 			ChessPiece capturedPiece = chessMatch.PerformChessMove(source, target);
-			
+			UI.clearScreen();
 			if(capturedPiece != null) {
 				captured.add(capturedPiece);
 			}
